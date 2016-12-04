@@ -9,6 +9,7 @@ if (isset($_POST["passagain"])) {
 	}
 	$myheight = $_POST["height"];
 	$myweight = $_POST["weight"];
+	$myweightkg = $_POST["weight_kg"];
 	$myape = $_POST["ape"];
 	include("common.php");
 /*
@@ -99,6 +100,7 @@ if (isset($error)) {
 		<input type="hidden" name="passagain" value="<?php print $passagain; ?>">
 		<input type="hidden" name="myheight" value="<?php print $myheight; ?>">
 		<input type="hidden" name="myweight" value="<?php print $myweight; ?>">
+		<input type="hidden" name="myweightkg" value="<?php print $myweightkg; ?>">
 		<input type="hidden" name="myape" value="<?php print $myape; ?>">
 		<button type="submit" id="mybutton" style="width:200px;">complete registration</button>
 		</div>

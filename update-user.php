@@ -56,13 +56,18 @@ if (isset($_SESSION["usermast"])) {
                 } else {
                         $newweight = "";
                 }
+                if (!empty($_POST['newweight_kg'])) {   
+                        $newweight_kg = $_POST['newweight_kg'];
+                } else {
+                        $newweight_kg = "";
+                }
                 if (!empty($_POST['newape'])) {
                         $newape = $_POST['newape'];
                 } else {
                         $newape = "";
                 }
-                $update = "update user_mast set height = :height, weight = :weight, ape = :ape where user_mast_id = :user_mast_id";
-                $updateparams = array(':height' => $newheight, ':weight' => $newweight, ':ape' => $newape, ':user_mast_id' => $user_mast_id);
+                $update = "update user_mast set height = :height, weight = :weight, ape = :ape, weightkg = :weightkg where user_mast_id = :user_mast_id";
+                $updateparams = array(':height' => $newheight, ':weight' => $newweight, ':ape' => $newape, ':weightkg' => $newweight_kg, ':user_mast_id' => $user_mast_id);
                 try {
                         $hestmt = $db->prepare($update);
                         $result = $hestmt->execute($updateparams);

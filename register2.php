@@ -6,6 +6,7 @@ if (isset($_POST['handle'])) {
 	$mypass = $_POST['mypass'];
 	$myheight = $_POST['myheight'];
 	$myweight = $_POST['myweight'];
+	$myweightkg = $_POST['myweightkg'];
 	$myape = $_POST['myape'];
 	$passagain = $_POST['passagain'];
 	#check email against db and handle against db
@@ -38,8 +39,8 @@ mysql> describe user_mast;
                 }
 	} else {
 		#registration and email here
-		$insert = "insert into user_mast (user, pass, handle, approved, height, weight, ape) values (:myuser, :mypass, :handle, 'no', :height, :weight, :ape)";
-		$insertparams = array(':myuser' => $myuser, ':mypass' => $mypass, ':handle' => $handle, ':height' => $myheight, ':weight' => $myweight, ':ape' => $myape);
+		$insert = "insert into user_mast (user, pass, handle, approved, height, weight, ape, weightkg) values (:myuser, :mypass, :handle, 'no', :height, :weight, :ape, :weightkg)";
+		$insertparams = array(':myuser' => $myuser, ':mypass' => $mypass, ':handle' => $handle, ':height' => $myheight, ':weight' => $myweight, ':ape' => $myape, ':weightkg' => $myweightkg);
 		try {
                         $istmt = $db->prepare($insert);
                         $result = $istmt->execute($insertparams);
@@ -93,6 +94,7 @@ if (isset($handle_error)) {
 		<input type="hidden" name="passagain" value="<?php print $passagain; ?>">
 		<input type="hidden" name="myheight" value="<?php print $myheight; ?>">
                 <input type="hidden" name="myweight" value="<?php print $myweight; ?>">
+                <input type="hidden" name="myweightkg" value="<?php print $myweightkg; ?>">
                 <input type="hidden" name="myape" value="<?php print $myape; ?>">
 		<button type="submit" id="mybutton" style="width:100px; margin-top:-1px;">try again</button>
 		</form>

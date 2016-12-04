@@ -45,7 +45,7 @@ if (isset($_SESSION["usermast"])) {
 	<?php print $_SESSION["username"]; ?><br>
 	<div id="weight_height">
 <?php
-	$hwaq = "select height, weight, ape from user_mast where user_mast_id = :user_mast_id";
+	$hwaq = "select height, weight, ape, weightkg from user_mast where user_mast_id = :user_mast_id";
         $hwaqparams = array(':user_mast_id' => $_SESSION['user_id']);
         try {
                 $hwastmt = $db->prepare($hwaq);
@@ -57,7 +57,7 @@ if (isset($_SESSION["usermast"])) {
 ?>
 		<input class="smallinput" name="newheight" type="text" placeholder="your height" style="margin-left:0;" value="<?php print $hwarow['height']; ?>"><div class="minibr"></div>
 
-		<input id="newweight_lb" class="smallinput" name="newweight" type="text" placeholder="weight (lb)" style="margin-left:0; width:47px;" value="<?php print $hwarow['weight']; ?>"><span style="margin-left:-16px; font-size:.7em; color:#666666;">lb</span> &nbsp;&nbsp;&nbsp;<input id="newweight_kg" class="smallinput" name="newweight_kg" type="text" placeholder="weight" style="margin-left:0; width:47px;"><span style="margin-left:-20px; font-size:.7em; color:#666666;">kg</span><div class="minibr"></div>
+		<input id="newweight_lb" class="smallinput" name="newweight" type="text" placeholder="weight (lb)" style="margin-left:0; width:47px;" value="<?php print $hwarow['weight']; ?>"><span style="margin-left:-16px; font-size:.7em; color:#666666;">lb</span> &nbsp;&nbsp;&nbsp;<input id="newweight_kg" class="smallinput" name="newweight_kg" type="text" placeholder="weight" style="margin-left:0; width:47px;" value="<?php print $hwarow['weightkg']; ?>"><span style="margin-left:-20px; font-size:.7em; color:#666666;">kg</span><div class="minibr"></div>
 
 		<input class="smallinput" name="newape" type="text" placeholder="your 'ape index'" style="margin-left:0;" value="<?php print $hwarow['ape']; ?>"><div class="minibr"></div>
 	</div>
@@ -613,13 +613,13 @@ include("colorlegend.php");
 	$("#newweight_lb").keyup(function() {
 	        var lbs = $("#newweight_lb").val();
 	        var kgs = lbs / 2.20462262185;
-	        kgs = kgs.toFixed(4);
+	        kgs = kgs.toFixed(1);
 	        $("#newweight_kg").val(kgs);
 	});
 	$("#newweight_kg").keyup(function() {
 	        var kgs = $("#newweight_kg").val();
 	        var lbs = kgs / 0.45359237;
-	        lbs = lbs.toFixed(4);
+	        lbs = lbs.toFixed(1);
 	        $("#newweight_lb").val(lbs);
 	});
 </script>
