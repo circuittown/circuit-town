@@ -7,6 +7,7 @@ include("head.php");
 <script src="js/jquery.pwstrength.js" type="text/javascript" charset="utf-8"></script>
 <script>
 	function validateregister() {
+        if($('#txtNewPassword:visible').length == 0) return true;
                 var x=document.forms["register"]["passagain"].value;
                 var y=document.forms["register"]["pass"].value;
                 if (x!=y) {
