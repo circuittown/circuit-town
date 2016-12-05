@@ -30,7 +30,7 @@ include("head.php");
         
         <table width="600" cellpadding="0" cellspacing="0" border="0">
 <?php
-$q = "select user, pass, user_mast_id, approved, handle from user_mast order by user_mast_id, approved";
+$q = "select user, pass, user_mast_id, approved, handle, weight, height, ape, weightkg from user_mast order by user_mast_id, approved";
 try {
         $stmt = $db->prepare($q);
         $result = $stmt->execute();
@@ -66,7 +66,6 @@ while ($row = $stmt->fetch()) {
                         <td style="padding:3px;"><?php print stripslashes($row['user']); ?></td>
                         <td style="padding:3px;"><?php print $passss; ?></td>
                         <td style="padding:3px;"><?php print $row['approved']; ?></td>
-                        <td style="padding:3px; text-align:right;"><?php print $cdata; ?></td>
 			<td style="padding:3px; text-align:right;">[ <a href="javascript:void(0);" data-id="<?php print $row['user_mast_id']; ?>"<?php print $class; ?>>C</a> ]</td>
                 </tr>
 <?php
