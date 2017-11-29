@@ -49,3 +49,25 @@ if($segs[0] == 'getCard') {
         die;
     }
 }
+
+if($segs[0] == 'getAreas') {
+    $q = "select area, area_id, country_id, user_mast_id from areas where approved = 'yes' order by country_id, TRIM(LEADING 'the ' FROM LOWER(`area`))";
+    try {
+        $stmt = $db->prepare($q);
+        $result = $stmt->execute();
+    } catch(PDOException $ex) {
+        die("Failed to run query: " . $ex->getMessage());
+    }
+    $x = 0;
+    while ($row = $stmt->fetch()) {
+          $out[] = $row;
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode(array(
+        'areas' => $out)
+    );
+
+    die;
+
+}
