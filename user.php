@@ -30,7 +30,7 @@ include("head.php");
         
         <table width="600" cellpadding="0" cellspacing="0" border="0">
 <?php
-$q = "select user, pass, user_mast_id, approved, handle, weight, height, ape, weightkg from user_mast order by user_mast_id, approved";
+$q = "select user, md5, user_mast_id, approved, handle, weight, height, ape, weightkg from user_mast order by user_mast_id, approved";
 try {
         $stmt = $db->prepare($q);
         $result = $stmt->execute();
@@ -57,7 +57,7 @@ while ($row = $stmt->fetch()) {
 	} else {
 		$class = substr_replace($class, " showdetails\"", -1, 0);
 	}
-	$passss = md5($row['pass']);
+	$passss = $row['md5'];
 	$passss = substr($passss, 0, 14);
 ?>
                 <tr valign="top"<?php print $style; ?>>

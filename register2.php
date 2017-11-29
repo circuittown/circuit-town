@@ -39,8 +39,9 @@ mysql> describe user_mast;
                 }
 	} else {
 		#registration and email here
-		$insert = "insert into user_mast (user, pass, handle, approved, height, weight, ape, weightkg) values (:myuser, :mypass, :handle, 'no', :height, :weight, :ape, :weightkg)";
-		$insertparams = array(':myuser' => $myuser, ':mypass' => $mypass, ':handle' => $handle, ':height' => $myheight, ':weight' => $myweight, ':ape' => $myape, ':weightkg' => $myweightkg);
+		$md5 = md5($mypass);
+		$insert = "insert into user_mast (user, md5, handle, approved, height, weight, ape, weightkg) values (:myuser, :md5, :handle, 'no', :height, :weight, :ape, :weightkg)";
+		$insertparams = array(':myuser' => $myuser, ':md5' => $md5, ':handle' => $handle, ':height' => $myheight, ':weight' => $myweight, ':ape' => $myape, ':weightkg' => $myweightkg);
 		try {
                         $istmt = $db->prepare($insert);
                         $result = $istmt->execute($insertparams);

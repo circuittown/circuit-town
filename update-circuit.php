@@ -298,7 +298,7 @@ $(document).ready(function() {
 							<tr>
 								<td style="padding-right:3px; padding-top:3px; padding-bottom:3px; font-size:.8em; color:#322E29;">change difficulty</td>
 <?php
-				if (in_array($_SESSION['user_id'], $_SESSION['pink_gods'])) {
+				if (in_array($_SESSION['usermast'], $_SESSION['pink_gods'])) {
 					$lickq = "select colour, css from colour";
 				} else {
 					$lickq = "select colour, css from colour where colour != 'pink'";

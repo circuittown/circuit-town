@@ -19,7 +19,7 @@ if (isset($_SESSION["usermast"])) {
 		if ($_POST['gochangepass'] != "no") {
 			if (!empty($_POST['pass'])) {
 				if (!empty($_POST['oldpass'])) {
-					$pq = "select pass from user_mast where user_mast_id = :user_mast_id";
+					$pq = "select md5 from user_mast where user_mast_id = :user_mast_id";
 					$pqparams = array(':user_mast_id' => $user_mast_id);
 					try {
 						$pstmt = $db->prepare($pq);
@@ -28,13 +28,15 @@ if (isset($_SESSION["usermast"])) {
 						die("Failed to run query: " . $ex->getMessage());
 					}
 					$prow = $pstmt->fetch();
-					if ($prow['pass'] != $_POST['oldpass']) {
+					$op_md5 = md5($_POST['oldpass']);
+					if ($prow['md5'] != $op_md5) {
 						$_SESSION["passchangeerr"] = "your old password was wrong.";
 						header("location:index.php");
 						exit;
 					} else {
-						$update = "update user_mast set pass = :pass where user_mast_id = :user_mast_id";
-						$updateparams = array(':pass' => $_POST['pass'], ':user_mast_id' => $user_mast_id);
+					        $new_md5 = md5($_POST['pass']);
+						$update = "update user_mast set md5 = :new_md5 where user_mast_id = :user_mast_id";
+						$updateparams = array(':new_md5' => $new_md5, ':user_mast_id' => $user_mast_id);
 						try {
 	                                                $ustmt = $db->prepare($update);
 	                                                $result = $ustmt->execute($updateparams);

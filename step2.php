@@ -194,7 +194,7 @@ if (isset($error)) {
 	<div style="margin-top:14px; width:40%; background-color:#665D50; padding-top:5px; padding-left:5px; padding-right:5px; overflow:hidden;">
 	<div class="circtitle" style="margin-bottom:5px;">difficulty</div>
 <?php
-	if (in_array($_SESSION['user_id'], $_SESSION['pink_gods'])) {
+	if (in_array($_SESSION['usermast'], $_SESSION['pink_gods'])) {
 		$coq = "select colour, adjective, english from colour order by colour_id";
 	} else {
 		$coq = "select colour, adjective, english from colour where colour != 'pink' order by colour_id";

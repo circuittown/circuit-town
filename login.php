@@ -8,10 +8,10 @@ if (!empty($_GET['error'])) {
 }
 if (isset($_POST["user"])) {
         $useruser = strtolower($_POST["user"]);
-        $passpass = $_POST["pass"];
+        $passpass = md5($_POST["pass"]);
         session_start();
 
-  $query = "select user, pass, user_mast_id, approved, handle from user_mast";
+  $query = "select user, md5, user_mast_id, approved, handle from user_mast";
   try {
         $stmt = $db->prepare($query);
         $result = $stmt->execute();
@@ -22,7 +22,7 @@ if (isset($_POST["user"])) {
   while ($row = $stmt->fetch()) {
     $dbuser = strtolower($row['user']);
     $dbuser = trim($dbuser);
-    $dbpass = $row['pass'];
+    $dbpass = $row['md5'];
     if ($dbuser == $useruser) {
       if ($dbpass == $passpass) {
 // LOGGED IN

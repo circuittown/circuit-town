@@ -7,7 +7,7 @@ if (!empty($_POST['pass'])) {
 		if ($_POST['pass'] == $_POST['passagain']) {
 			include("common.php");
 			$user_mast_id = $_POST['user_mast_id'];
-			$q = "select user, pass, reset, handle from user_mast where user_mast_id = :user_mast_id";
+			$q = "select user, md5, reset, handle from user_mast where user_mast_id = :user_mast_id";
 			$qparams = array(':user_mast_id' => $user_mast_id);
 	                try {
 	                        $stmt = $db->prepare($q);
@@ -17,8 +17,9 @@ if (!empty($_POST['pass'])) {
 	                }
 	                $row = $stmt->fetch();
 	                if ($row['reset'] == $_POST['randstr']) {
-				$update = "update user_mast set reset = '', pass = :newpass where user_mast_id = :user_mast_id";
-	                        $updateparams = array(':newpass' => $_POST['pass'], ':user_mast_id' => $user_mast_id);
+	                        $md5 = md5($_POST['pass']);
+				$update = "update user_mast set reset = '', md5 = :md5 where user_mast_id = :user_mast_id";
+	                        $updateparams = array(':md5' => $md5, ':user_mast_id' => $user_mast_id);
 				try {
 	                                $stmt = $db->prepare($update);
 	                                $result = $stmt->execute($updateparams);
@@ -35,7 +36,7 @@ if (!empty($_GET['user_id'])) {
 	if (!empty($_GET['randstr'])) {
 		include("common.php");
 		$user_mast_id = $_GET['user_id'];
-		$q = "select user, pass, reset, handle from user_mast where user_mast_id = :user_mast_id";
+		$q = "select user, md5, reset, handle from user_mast where user_mast_id = :user_mast_id";
 		$qparams = array(':user_mast_id' => $user_mast_id);
 		try {
 		        $stmt = $db->prepare($q);
