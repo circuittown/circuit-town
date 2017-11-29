@@ -9,6 +9,5 @@ contact: andyklier@gmail.com
 
 you have no rights here, troll.
 -->
-	hello world
 	<h1><a href="index.php" class="homelink"><?php print $sitename; ?></a></h1>
 	database of bouldering circuits - <a href="howitworks.php" class="register">how it works</a>
