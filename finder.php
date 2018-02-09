@@ -1,17 +1,11 @@
 <?php
-require("common.php");
-$fq = "select area, area_id from areas where approved = 'yes' order by TRIM(LEADING 'the ' FROM LOWER(`area`))";
-try {
-	$fstmt = $db->prepare($fq);
-	$result = $fstmt->execute();
-} catch(PDOException $ex) {
-	die("Failed to run query: " . $ex->getMessage());
-}
-while ($frow = $fstmt->fetch()) {
-        $selectarea = stripslashes($frow['area']);
-        $selectarea = strtolower($selectarea);
+require_once("common.php");
+require_once('common_lib.php');
+    $areas = ctownapi('GET', "{$ctownapi_host}/api/getAreas");
+
+foreach ($areas as $foo => $bar) {
 ?>
-      <option value="circuit.php?area_id=<?php print $frow['area_id']; ?>"><?php print strtolower($selectarea); ?></option>
+      <option value="circuit.php?area_id=<?php print $bar['area_id']; ?>"><?php print $bar['area']; ?></option>
 <?php
 }
 ?>

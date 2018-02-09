@@ -1,8 +1,9 @@
 <?php 
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set( "display_errors", 1 );
-include("common.php");
-include("head.php"); 
+require_once("common.php");
+require_once('common_lib.php');
+require_once("head.php"); 
 ?>
 <script src="js/jquery.pwstrength.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -32,8 +33,8 @@ $(document).ready(function() {
 });
 </script>
 <div id="main">
-<?php include("h1.php"); ?>
-<?php include("find.php"); ?>
+<?php require_once("h1.php"); ?>
+<?php require_once("find.php"); ?>
 <div id="newshit">
 <?php
 session_start();

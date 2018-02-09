@@ -4,7 +4,7 @@
 		<select name="URL" onchange="window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value" id="finderselect">
 			<option value="#">- select an area -</option>
 <?php
-include("finder.php");
+require_once("finder.php");
 ?>
 		</select>
 		</form>
