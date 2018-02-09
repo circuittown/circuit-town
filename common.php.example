@@ -27,6 +27,4 @@ if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
 }
 #header('Content-Type: text/html; charset=utf-8');
 session_start();
-// setting array for the pink gods here.
-$_SESSION['pink_gods'] = array(1, 8, 23);
 ?>

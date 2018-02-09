@@ -194,11 +194,25 @@ if (isset($error)) {
 	<div style="margin-top:14px; width:40%; background-color:#665D50; padding-top:5px; padding-left:5px; padding-right:5px; overflow:hidden;">
 	<div class="circtitle" style="margin-bottom:5px;">difficulty</div>
 <?php
-	if (in_array($_SESSION['usermast'], $_SESSION['pink_gods'])) {
-		$coq = "select colour, adjective, english from colour order by colour_id";
-	} else {
-		$coq = "select colour, adjective, english from colour where colour != 'pink' order by colour_id";
-	}
+        if (isset($_SESSION['user_id'])) {
+                $userid = $_SESSION['user_id'];
+                $blackcountq = "select count(cards.card_id) from cards inner join circuit on cards.circuit_id = circuit.circuit_id where cards.user_mast_id = :user_id and circuit.colour = 'black'";
+                $blackcountqparams = array(':user_id' => $userid);
+                try {
+                        $blackcountstmt = $db->prepare($blackcountq);
+                        $result = $blackcountstmt->execute($blackcountqparams);
+                } catch(PDOException $ex) {
+                        die("Failed to run query: " . $ex->getMessage());
+                }
+                $blackcountrow = $blackcountstmt->fetch();
+                $blackcount = $blackcountrow['count(cards.card_id)'];
+                if ($blackcount > 2) {
+                        $coq = "select colour, adjective, english from colour order by colour_id";
+                }
+        }
+        if (!isset($coq)) {
+        	$coq = "select colour, adjective, english from colour where colour != 'pink' order by colour_id";
+        }
 	try {
 		$costmt = $db->prepare($coq);
 		$result = $costmt->execute();

@@ -298,10 +298,24 @@ $(document).ready(function() {
 							<tr>
 								<td style="padding-right:3px; padding-top:3px; padding-bottom:3px; font-size:.8em; color:#322E29;">change difficulty</td>
 <?php
-				if (in_array($_SESSION['usermast'], $_SESSION['pink_gods'])) {
-					$lickq = "select colour, css from colour";
-				} else {
-					$lickq = "select colour, css from colour where colour != 'pink'";
+				if (isset($_SESSION['user_id'])) {
+			                $userid = $_SESSION['user_id'];
+			                $blackcountq = "select count(cards.card_id) from cards inner join circuit on cards.circuit_id = circuit.circuit_id where cards.user_mast_id = :user_id and circuit.colour = 'black'";
+			                $blackcountqparams = array(':user_id' => $userid);
+			                try {
+			                        $blackcountstmt = $db->prepare($blackcountq);
+			                        $result = $blackcountstmt->execute($blackcountqparams);
+			                } catch(PDOException $ex) {
+			                        die("Failed to run query: " . $ex->getMessage());
+			                }
+			                $blackcountrow = $blackcountstmt->fetch();
+			                $blackcount = $blackcountrow['count(cards.card_id)'];
+			                if ($blackcount > 2) {
+			                        $lickq = "select colour, css, adjective, english from colour order by colour_id";
+			                }
+			        }
+				if (!isset($lickq)) {
+					$lickq = "select colour, css, adjective, english from colour where colour != 'pink' order by colour_id";
 				}
 				try {
 	                                $lickstmt = $db->prepare($lickq);
